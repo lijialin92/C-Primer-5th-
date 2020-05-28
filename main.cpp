@@ -1,4 +1,5 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <iomanip>
 #include <ctime>
 #include <vector>
@@ -367,5 +368,10 @@ int main() {
 
 
 
+=======
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+>>>>>>> 5758604... test push 1
     return 0;
 }
