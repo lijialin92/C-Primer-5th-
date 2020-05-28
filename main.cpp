@@ -1,5 +1,5 @@
 /**
- * this is the exercises' solutions for C++ Primer 5th Edition Chapter 12*/
+ * this is the exercises' solutions for C++ Primer 5th Edition Chapter 10*/
 
 #include <iostream>
 #include <algorithm>
