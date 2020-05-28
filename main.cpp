@@ -60,7 +60,7 @@ void exercise10_4()
  * */
 void exercise10_5()
 {
-    char* a[] {"aaaa", "bbbb", "."};
+    char* a[] {"aaaa", "bbbb", "cccc"};
     char* b[] {strdup(a[0]), strdup(a[1]), strdup(a[2])};
     std::cout << "are these two C style string the same?" << std::endl;
     std::cout << std::boolalpha << std::equal(a, a+3, b);
