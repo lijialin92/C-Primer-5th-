@@ -7,9 +7,9 @@
 #include <list>
 
 /**
- * exercise 12.1
- * call exercise12_1 in the main function and see the result*/
-void exercise12_1()
+ * exercise 10.1
+ * call exercise10_1 in the main function and see the result*/
+void exercise10_1()
 {
     std::vector<int> a{1, 3, 5, 54, 6, 7, 2, 4, 6, 4, 9, 38, 27, 20, 3, 4, 4};
     std::cout << "there are " << std::count(a.cbegin(), a.cend(), 1) << " value '1' inside of the array: " << std::endl;
@@ -19,9 +19,9 @@ void exercise12_1()
 }
 
 /**
- * exercise 12.2
- * call exercise12_2 in the main function and see the result*/
- void exercise12_2()
+ * exercise 10.2
+ * call exercise10_2 in the main function and see the result*/
+ void exercise10_2()
 {
      std::list<std::string> a{"aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff", "aaaa"};
      std::cout << "there are in total " << std::count(a.cbegin(), a.cend(), "aaaa") << " aaaa inside of the array:" << std::endl;
