@@ -155,8 +155,69 @@ void exercise10_7a()
  * exercise 10.10
  * Generic algorithm is generic because it can be apply for different data structure. Algorithm is separate from data
  * structure, it only interact with iterator*/
+
+/**
+ * exercise10.11*/
+bool isShorter(const std::string&, const std::string&);
+void exercise10_11()
+{
+    std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    std::cout << "the original string vector is:" << std::endl;
+    for(const auto& i : a)
+        std::cout << i << "\t";
+    std::sort(a.begin(), a.end());
+    auto it = std::unique(a.begin(), a.end());
+    a.erase(it, a.end());
+    std::cout << std::endl;
+    std::cout << "after elimDups the string vector is: " << std::endl;
+    for(const auto& i : a)
+        std::cout << i << "\t";
+    std::stable_sort(a.begin(), a.end(), isShorter);
+    std::cout << std::endl;
+    std::cout << "after apply stable_sort() with isShorter" << std::endl;
+    for(const auto& i : a)
+        std::cout << i << "\t";
+}
+bool isShorter(const std::string& s1, const std::string& s2)
+{
+    return s1.size() < s2.size();
+}
+
+/**
+ * exercise10.12*/
+/*void compareIsbn(const Sales_data& d1, const Sales_data& d2)
+{
+    return d1.isbn() < d2.isbn();
+}
+
+void exercise10_12()
+{
+    std::vector<Sales_data> a ; // a is a Sales_data type vector
+    std::sort(a.begin(), a.end(), compareIsbn);
+}*/
+
+/**
+ * exercise10.13*/
+bool isLessThanFive(std::string& s)
+{
+    return s.size() < 5;
+}
+
+void exercise10_13()
+{
+    std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    auto it = std::partition(a.begin(), a.end(), isLessThanFive);
+    std::cout << "the words have more than 5 characters:" << std::endl;
+    for(auto it1 = it; it1 != a.cend(); ++it1)
+    {
+        std::cout << *it1 << "\t";
+    }
+}
+
+
+
 int main()
 {
-    exercise10_9()
+    exercise10_13()
     ;
 }
