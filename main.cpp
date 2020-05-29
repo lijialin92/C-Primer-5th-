@@ -214,10 +214,77 @@ void exercise10_13()
     }
 }
 
+/**
+ * exercise10.14*/
+void exercise10_14()
+{
+    auto sum = [](int a, int b) -> int {return a + b;};
+    std::cout << sum(1, 10);
+}
 
+/**
+ * exercise10.15
+ * call exercise10_15(1) the output will be 1 + 10 = 11*/
+void exercise10_15(int a)
+{
+    auto sum = [a](int b)-> int { return a + b;};
+    std::cout << sum(10);
+}
+
+/**
+ * exercise10.16
+ * to call
+ * std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+ * biggies(a, 5);*/
+void biggies(std::vector<std::string>& a, std::vector<std::string>::size_type sz)
+{
+    std::sort(a.begin(), a.end());
+    auto it = std::unique(a.begin(), a.end());
+    a.erase(it, a.end());
+    std::stable_sort(a.begin(), a.end(), [](const std::string& s1, const std::string& s2)->bool{ return s1.size() < s2.size();});
+    auto it1 = std::find_if(a.begin(), a.end(), [sz](const std::string& s)->bool{ return s.size() >= sz;});
+    std::for_each(it1, a.end(), [](const std::string& s){std::cout << s << " ";});
+}
+
+/**
+ * exercise10.17
+ * Since we do not have Sales_data class, the compile will push error out. we comment the code.*/
+/*void exercise10_17(std::vector<Sales_data>& a)
+{
+    std::sort(a.begin(); a.end(), [](const Sales_data& d1, const Sales_data& d2)->bool{ return d1.isbn() < d2.isbn();});
+}*/
+
+/**
+ * exercise10.18
+ * call:
+ * std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"}
+ * exercise10_18(a, 4)*/
+void exercise10_18(std::vector<std::string>& a, std::vector<std::string>::size_type sz)
+{
+    std::sort(a.begin(), a.end());
+    auto it = std::unique(a.begin(), a.end());
+    a.erase(it, a.end());
+    std::stable_sort(a.begin(), a.end(), [](const std::string& s1, const std::string& s2)->bool{ return s1.size() < s2.size();});
+    auto it1 = std::partition(a.begin(), a.end(), [sz](const std::string& s)->bool{ return s.size() < sz;});
+    std::for_each(it1, a.end(), [](const std::string& s){std::cout << s << " ";});
+}
+
+/**
+ * exercise10.19
+ * just change partition to stable_partition*/
+void exercise10_19(std::vector<std::string>& a, std::vector<std::string>::size_type sz)
+{
+    std::sort(a.begin(), a.end());
+    auto it = std::unique(a.begin(), a.end());
+    a.erase(it, a.end());
+    std::stable_sort(a.begin(), a.end(), [](const std::string& s1, const std::string& s2)->bool{ return s1.size() < s2.size();});
+    auto it1 = std::stable_partition(a.begin(), a.end(), [sz](const std::string& s)->bool{ return s.size() < sz;});
+    std::for_each(it1, a.end(), [](const std::string& s){std::cout << s << " ";});
+}
 
 int main()
 {
-    exercise10_13()
+    std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    exercise10_19(a, 5)
     ;
 }
