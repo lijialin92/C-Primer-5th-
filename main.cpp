@@ -130,8 +130,33 @@ void exercise10_7a()
  * algorithm only operate iterator, algorithm can insert or delete the elements of container or not, are totally depend
  * on the type of iterator that we give to the algorithm.*/
 
+/**
+ * exercise10.9*/
+ void exercise10_9()
+{
+     std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+     std::sort(a.begin(), a.end());
+     std::cout << "after sorting: " << std::endl;
+     for(auto& i : a)
+         std::cout << i << "\t";
+     auto it = std::unique(a.begin(), a.end());
+     std::cout << std::endl;
+     std::cout << "after unique: " << std::endl;
+     for(auto& i : a)
+        std::cout << i << "\t";
+     a.erase(it, a.end());
+    std::cout << std::endl;
+     std::cout << "after erase: " << std::endl;
+     for(auto& i : a)
+        std::cout << i << "\t";
+}
+
+/**
+ * exercise 10.10
+ * Generic algorithm is generic because it can be apply for different data structure. Algorithm is separate from data
+ * structure, it only interact with iterator*/
 int main()
 {
-    exercise10_7a()
+    exercise10_9()
     ;
 }
