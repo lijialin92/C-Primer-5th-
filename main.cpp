@@ -66,7 +66,72 @@ void exercise10_5()
     std::cout << std::boolalpha << std::equal(a, a+3, b);
 }
 
+/**
+ * exercise10.6
+ * call exercise10_6 in the main function and see the result */
+void exercise10_6()
+{
+    std::vector<int> a{1, 3, 5, 54, 6, 7, 2, 4, 6, 4, 9, 38, 27, 20, 3, 4, 4};
+    std::cout << "the array is: " << std::endl;
+    for(auto i : a)
+    {
+        std::cout << i << "\t";
+    }
+    std::fill_n(a.begin(), a.size(), 0);
+    std::cout << std::endl;
+    std::cout << "the array after reset is: " << std::endl;
+    for(auto i : a)
+    {
+        std::cout << i << "\t";
+    }
+}
+
+/**
+ * exercise10.7
+ * call exercise10_7 in the main function and see the result
+ * For (a) it is wrong, because algorithm always operate container by using iterator. Algorithm can not insert element,
+ * delete element or change the size of container. copy can not do this because vec and lst do not have the same number
+ * of elements. vec is empty, and copy() as a algorithm can not change the size of a vector. Thus we need a special ite-
+ * rator to change the size of container.*/
+void exercise10_7()
+{
+    std::vector<int> vec;
+    std::list<int> lst;
+    int i;
+    for(int i = 0; i != 10; i++)
+        lst.push_back(i);
+    std::copy(lst.cbegin(), lst.cend(), back_inserter(vec));
+    std::cout << "after insertion vec is: " << std::endl;
+    for(auto i : vec)
+        std::cout << i << "\t";
+}
+
+/**
+ * exercise10.7
+ * call exercise10_7 in the main function and see the result
+ * When we call fill_n(), vec should have enough elements not just enough memory. But there is not element in vec, and
+ * algorithm can not insert element into container. Thus we need iterator back_inserter again.*/
+void exercise10_7a()
+{
+    std::vector<int> vec;
+    vec.reserve(10);
+    std::fill_n(back_inserter(vec), 10, 0);
+    std::cout << "after fill 0 in vec: " << std::endl;
+    for(auto i : vec)
+        std::cout << i << "\t";
+}
+
+/**
+ * exercise10.8
+ * algorithm do not know what is container. the parameters of algorithm are iterators, so algorithm are based on iterat
+ * -ors. When algorithm's parameters are normal iterators, then the algorithm can only change the value of element, vis-
+ * ite the element and move the element. When we want to use algorithm to insert element or delete element in the conta-
+ * iner, we need to use special iterators(inserter iterator...) as the parameter of the algorithm such as back_inserter().
+ * algorithm only operate iterator, algorithm can insert or delete the elements of container or not, are totally depend
+ * on the type of iterator that we give to the algorithm.*/
+
 int main()
 {
-
+    exercise10_7a()
+    ;
 }
