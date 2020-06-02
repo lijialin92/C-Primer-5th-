@@ -7,6 +7,7 @@
 #include <list>
 #include <numeric>
 #include <string.h>
+#include <functional>
 
 /**
  * exercise 10.1
@@ -261,7 +262,7 @@ void biggies(std::vector<std::string>& a, std::vector<std::string>::size_type sz
  * exercise10_18(a, 4)*/
 void exercise10_18(std::vector<std::string>& a, std::vector<std::string>::size_type sz)
 {
-    std::sort(a.begin(), a.end());
+    sort(a.begin(), a.end());
     auto it = std::unique(a.begin(), a.end());
     a.erase(it, a.end());
     std::stable_sort(a.begin(), a.end(), [](const std::string& s1, const std::string& s2)->bool{ return s1.size() < s2.size();});
@@ -282,9 +283,79 @@ void exercise10_19(std::vector<std::string>& a, std::vector<std::string>::size_t
     std::for_each(it1, a.end(), [](const std::string& s){std::cout << s << " ";});
 }
 
-int main()
+/**
+ * exercise10.20*/
+ void exercise10_20()
 {
     std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
-    exercise10_19(a, 5)
+    auto i = std::count_if(a.cbegin(), a.cend(), [](const std::string& s) {return s.size() >= 6;});
+    std:: cout << "there is in total " << i << " words have more than 5 characters." << std::endl;
+}
+
+/**
+ * exercise10.21*/
+void exercise10_21()
+{
+    int a = 5;
+    auto b = [a] () mutable -> bool {if (a == 0) return true; else {--a; return false;}};
+    for(int i = 0; i < a + 1; ++i)
+        std::cout << b() << "\t";
+}
+
+/**
+ * exercise10.22*/
+using namespace std::placeholders;
+bool checkSize(const std::string& s, std::string::size_type a)
+{
+    return s.size() >= a;
+}
+void exercise10_22()
+{
+    std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    auto n = std::count_if(a.cbegin(), a.cend(), bind(checkSize, _1, 6));
+    std::cout << "In total there are " << n << " words have more than 6 characters.";
+}
+
+/**
+ * exercise10.23
+ * the number of parameters of bind() is not a stable number. It is up to the parameters of actual function(the first p-
+ * arameter of bind()). */
+
+/**
+ * exercise10.24*/
+bool checkSizeInt(const int& a, const int b)
+{
+    return a > b;
+}
+void exercise10_24()
+{
+    std::vector<int> nums{1, 2, 4, 5, 3, 4, 7, 4, 56, 6, 7, 56, 4, 3, 4, 3, 8, 9, 8, 6, 6, 4, 5, 6, 6, 7, 8, 5,};
+    std::string a = "hallo";
+    auto it = find_if(nums.cbegin(), nums.cend(), bind(checkSizeInt, _1, a.size()));
+    std::cout << *it << std::endl;
+}
+
+/**
+ * exercise10.25
+ * partition the string vector all the string.size() > 6 will be placed in the forwards of the vector*/
+bool ifBigger(const std::string& s1, const std::string& s2)
+{
+    return s1.size() < s2.size();
+}
+void exercise10_25()
+{
+    std::vector<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    auto it1 = unique(a.begin(), a.end());
+    a.erase(it1, a.end());
+    sort(a.begin(), a.end());
+    stable_sort(a.begin(), a.end(), ifBigger);
+    auto it2 = partition(a.begin(), a.end(), bind(checkSize, _1, 6));
+    for(auto it = it2; it != a.cend(); ++it)
+        std::cout << *it << "\t";
+}
+
+int main()
+{
+    exercise10_25()
     ;
 }
