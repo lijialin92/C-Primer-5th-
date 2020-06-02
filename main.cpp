@@ -8,6 +8,8 @@
 #include <numeric>
 #include <string.h>
 #include <functional>
+#include <fstream>
+#include <iterator>
 
 /**
  * exercise 10.1
@@ -354,8 +356,163 @@ void exercise10_25()
         std::cout << *it << "\t";
 }
 
+/**
+ * exercise10.26
+ * back_inserter, front_inserter, and inserter.
+ * back_inserter apply push_back; front_inserter apply push_front; and inserter apply insert(it, val)*/
+
+/**
+ * exercise10.27*/
+void exercise10_27()
+{
+    std::list<int> lst, lst2;
+    std::vector<int> nums{1, 2, 4, 5, 3, 4, 7, 4, 56, 6, 7, 56, 4, 3, 4, 3, 8, 9, 8, 6, 6, 4, 5, 6, 6, 7, 8, 5};
+    sort(nums.begin(), nums.end());
+    unique_copy(nums.cbegin(), nums.cend(), back_inserter(lst));
+    unique_copy(nums.cbegin(), nums.cend(), inserter(lst2, lst2.begin()));
+    for(auto i:lst)
+        std::cout << i << "\t";
+    std::cout << std::endl;
+    for(auto i:lst2)
+        std::cout << i << "\t";
+}
+
+/**
+ * exercise10.28*/
+void exercise10_28()
+{
+    std::vector<int> a {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::list<int> lst1, lst2, lst3;
+    //123456789
+    unique_copy(a.cbegin(), a.cend(), back_inserter(lst1));
+    //987654321
+    unique_copy(a.cbegin(), a.cend(), front_inserter(lst2));
+    //123456789
+    unique_copy(a.cbegin(), a.cend(), inserter(lst3, lst3.begin()));
+    for(auto i:lst1)
+        std::cout << i << "\t";
+    std::cout << std::endl;
+    for(auto i:lst2)
+        std::cout << i << "\t";
+    std::cout << std::endl;
+    for(auto i:lst3)
+        std::cout << i << "\t";
+    std::cout << std::endl;
+}
+
+/**
+ * exercise10.29*/
+void exercise10_29()
+{
+    std::ifstream in("read_10_29.txt");
+    std::istream_iterator<std::string> inIter(in);
+    std::istream_iterator<std::string> eof;
+    std::vector<std::string> a;
+    while(inIter != eof)
+        a.push_back(*inIter++);
+    for(const auto& i:a)
+        std::cout << i << "\t";
+}
+
+/**
+ * exercise10.30*/
+void exercise10_30()
+{
+    std::vector<int> a;
+    std::fstream in("nums_10_30.txt");
+    std::istream_iterator<int> inIter(in);
+    std::istream_iterator<int> eof;
+    while(inIter != eof)
+        a.push_back(*inIter++);
+    sort(a.begin(), a.end());
+    std::ostream_iterator<int> outIter(std::cout, "\t");
+    copy(a.cbegin(), a.cend(), outIter);
+}
+
+/**
+ * exercise10.31*/
+void exercise10_31()
+{
+    std::vector<int> a;
+    std::fstream in("nums.txt");
+    std::istream_iterator<int> inIter(in);
+    std::istream_iterator<int> eof;
+    while(inIter != eof)
+        a.push_back(*inIter++);
+    sort(a.begin(), a.end());
+    std::ostream_iterator<int> outIter(std::cout, "\t");
+    unique_copy(a.cbegin(), a.cend(), outIter);
+}
+
+/**
+ * exercise10.32
+ * copy from the standard solution. not original by me!*/
+/*void exercise10_32()
+{
+    vector<Sales_item> vs;
+    istream_iterator<Sales_item> in_iter<(cin);
+    istream_iterator<Sales_item> eof;
+
+    //read the records and store in vector
+    while(in_iter != eof)
+        vs.push_back(*in_iter++);
+    if(vs.enpty())
+    {
+        std::cerr << "no data!" ;<< std::endl;
+        return -1;
+    }
+    sort(vs.begin(), vs.end(), compareIsbn);
+
+    auto l = vs.begin();
+    while(l != vs.end())
+    {
+        auto item = *l;
+        auto r = find_if(l + 1, vs.end(), [item] (const Sales_item &item1) { return item1.isbn() != item.isbn();});
+        std::cout << accumulate(l + 1, r, item) << std::endl;
+        l = r;
+    }
+}*/
+
+/**
+ * exercise10.33*/
+void exersice10_33()
+{
+    std::vector<int> a;
+    std::fstream in("in_10_33.txt");
+    if(!in)
+    {
+        std::cout << "fail to open the file in_10_33!" << std::endl;
+        exit(1);
+    }
+    std::fstream out("out_10_33.txt");
+    if(!out)
+    {
+        std::cout << "fail to open the file out_10_33!" << std::endl;
+        exit(1);
+    }
+    std::fstream out2("out_2_10_33.txt");
+    if(!out2)
+    {
+        std::cout << "fail to open the file out_2_10_33!" << std::endl;
+        exit(1);
+    }
+    std::istream_iterator<int> inIter(in);
+    std::istream_iterator<int> eof;
+    std::ostream_iterator<int> outIter(out, " ");
+    std::ostream_iterator<int> outIter2(out2, "\n");
+    while(inIter != eof)
+        a.push_back(*inIter++);
+    for(auto i : a)
+    {
+        if(i & 1)
+            outIter++ = i;
+        else
+            outIter2++ = i;
+    }
+}
+
 int main()
 {
-    exercise10_25()
+    exersice10_33()
     ;
 }
