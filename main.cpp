@@ -475,7 +475,7 @@ void exercise10_31()
 
 /**
  * exercise10.33*/
-void exersice10_33()
+void exercise10_33()
 {
     std::vector<int> a;
     std::fstream in("in_10_33.txt");
@@ -511,8 +511,98 @@ void exersice10_33()
     }
 }
 
+/**
+ * exercise10.34*/
+void exercise10_34()
+{
+    std::vector<int> nums{1, 2, 4, 5, 3, 4, 7, 4, 56, 6, 7, 56, 4, 3, 4, 3, 8, 9, 8, 6, 6, 4, 5, 6, 6, 7, 8, 5};
+    for(auto it = nums.crbegin(); it != nums.crend(); ++it)
+    {
+        std::cout << *it << "\t";
+    }
+}
+
+/**
+ * exercise10.35*/
+void exercise10_35()
+{
+    std::vector<int> nums{1, 2, 4, 5, 3, 4, 7, 4, 56, 6, 7, 56, 4, 3, 4, 3, 8, 9, 8, 6, 6, 4, 5, 6, 6, 7, 8, 5};
+    for(auto it = nums.cend()-1; it != nums.cbegin()-1; --it)
+        std::cout << *it << "\t";
+}
+
+/**
+ * exercise10.36*/
+void exercise10_36()
+{
+    std::list<int> nums{1, 0, 9, 8, 6, 0, 8, 5};
+    auto lastrZero = find(nums.crbegin(), nums.crend(), 0);// lastfZero is reverse_iterator
+    auto lastZero = (++lastrZero).base();
+    int cnt = 1;
+    for(auto it = nums.cbegin(); it != lastZero; ++it)
+        ++cnt;
+    std::cout << "the last is at " << cnt << "th" << std::endl;
+}
+
+/**
+ * exercise10.37*/
+void exercise10_37()
+{
+    std::list<int> lst;
+    std::ostream_iterator<int> outIter(std::cout, "\t");
+    std::vector<int> a{1,2,3,4,5,6,7,8,9,0};
+    std::vector<int>::reverse_iterator re(a.begin()+2);
+    std::vector<int>::reverse_iterator rb(a.begin()+7);
+    copy(rb, re, back_inserter(lst));
+    copy(lst.cbegin(), lst.cend(), outIter);
+}
+
+/**
+ * exercise10.38
+ * input iterator:
+ * output iterator:
+ * forwards iterator:
+ * bidirectional iterator:
+ * random-access iterator:*/
+
+/**
+ * exercise10.39
+ * list has bidirectional iterator
+ * vector has random-access iterator*/
+
+/**
+ * exercise10.40
+ * copy():
+ * for the first two parameters copy() needs input iterator, and for third parameter copy() needs at least output iterator.
+ * reverse():
+ * fot the two parameter of reverse(). It needs at least bidirectional iterator.
+ * unique():
+ * forwards iterator.
+ * */
+
+/**
+ * exercise10.41
+ * in the interval [beg, end), replace all the elements equal to old_value with new_value
+ * in the interval [beg, end)， replace all the elements that make the pred not equal to 0 with new_value
+ * in the interval [beg, end), copy all the elements equal to old_value with new value to dest
+ * in the interval [beg, end), copy all the elements that make the pred not equal to 0 with new_value to dest*/
+
+/**
+ * exercise10.42*/
+void exercise10_42()
+{
+    std::list<std::string> a {"the", "quick", "over", "quick", "red", "slow", "the", "turtle"};
+    a.sort();
+    for(const auto& i:a)
+        std::cout << i << "\t";
+    std::cout << std::endl;
+    a.unique();
+    for(const auto& i:a)
+        std::cout << i << "\t";
+}
+
 int main()
 {
-    exersice10_33()
+    exercise10_42()
     ;
 }
